@@ -40,14 +40,14 @@ def entities(request):
     """
     if request.method == 'POST':
         text = request.POST.get('text')
-        data = {}
+        data = []
         ml = MonkeyLearn(settings.MONKEYLEARN_API_KEY)
         text_list = [text]
         module_id = settings.MONKEYLEARN_MODULE_ID
         res = ml.extractors.extract(module_id, text_list)
         for i in range(len(res.result[0])):
             print res.result[0][i]
-            data[i] = res.result[0][i]
+            data.append(res.result[0][i])
         return Response(data)
 
     else:
