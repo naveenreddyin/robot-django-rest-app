@@ -63,6 +63,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 )
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'robot.urls'
 
