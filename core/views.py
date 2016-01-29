@@ -1,5 +1,6 @@
 from itertools import izip
 
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.conf import settings
 
@@ -47,9 +48,10 @@ def entities(request):
         module_id = settings.MONKEYLEARN_MODULE_ID
         res = ml.extractors.extract(module_id, text_list)
         print(res.result)
-        for i in range(len(res.result[0])):
-            data.append(res.result[0][i])
-        return Response(res.result)
+        # for i in range(len(res.result[0])):
+        #     data.append(res.result[0][i])
+        data.append({'count': 1, 'tag': 'ORGANIZATION', 'entity': 'About Data Respons Data Respons'})
+        return Response(data)
 
     else:
         data = {}
