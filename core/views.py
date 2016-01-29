@@ -44,36 +44,17 @@ def entities(request):
     """
     if request.method == 'POST':
         text = request.POST.get('text')
-        data = {}
+        data = []
         ml = MonkeyLearn(settings.MONKEYLEARN_API_KEY)
         text_list = [text]
         module_id = settings.MONKEYLEARN_MODULE_ID
         res = ml.extractors.extract(module_id, text_list)
-
-        tempDict = {}
-        temp_string = "["
         for i in range(len(res.result[0])):
-
-            temp_string += "{'count': '%s', 'tag': '%s', 'entity': '%s'}," % (res.result[0][i].get('count'),
-                                                                        res.result[0][i].get('tag'),
-                                                                        res.result[0][i].get('entity'))
-        temp_string += "]"
-        print temp_string
-        # data.append({'count': 1, 'tag': 'ORGANIZATION', 'entity': 'About Data Respons Data Respons'})
-        # data.append({'count': 1, 'tag': 'ORGANIZATION', 'entity': 'Oslo Stock Exchange'})
-        # data.append({'count': 3, 'tag': 'PERSON', 'entity': 'Ragnvaldsen'})
-        return HttpResponse(temp_string, content_type='text/plain')
+            print res.result[0][i]
+            data.append(res.result[0][i])
+        return Response(data)
 
     else:
         data = {}
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
-def convert(input):
-    if isinstance(input, dict):
-        return {convert(key): convert(value) for key, value in input.iteritems()}
-    elif isinstance(input, list):
-        return [convert(element) for element in input]
-    elif isinstance(input, unicode):
-        return input.encode('utf-8')
-    else:
-        return input
