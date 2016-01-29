@@ -44,20 +44,25 @@ def entities(request):
     """
     if request.method == 'POST':
         text = request.POST.get('text')
-        data = []
+        data = {}
         ml = MonkeyLearn(settings.MONKEYLEARN_API_KEY)
         text_list = [text]
         module_id = settings.MONKEYLEARN_MODULE_ID
         res = ml.extractors.extract(module_id, text_list)
-        print(res.result)
-        tempDict = []
+
+        tempDict = {}
+        temp_string = "["
         for i in range(len(res.result[0])):
-            tempDict.append(convert(res.result[0][i]))
+
+            temp_string += "{'count': '%s', 'tag': '%s', 'entity': '%s'}," % (res.result[0][i].get('count'),
+                                                                        res.result[0][i].get('tag'),
+                                                                        res.result[0][i].get('entity'))
+        temp_string += "]"
+        print temp_string
         # data.append({'count': 1, 'tag': 'ORGANIZATION', 'entity': 'About Data Respons Data Respons'})
         # data.append({'count': 1, 'tag': 'ORGANIZATION', 'entity': 'Oslo Stock Exchange'})
         # data.append({'count': 3, 'tag': 'PERSON', 'entity': 'Ragnvaldsen'})
-        data.append({"message":tempDict})
-        return Response(data)
+        return HttpResponse(temp_string, content_type='text/plain')
 
     else:
         data = {}
