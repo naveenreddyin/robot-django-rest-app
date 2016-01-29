@@ -5,3 +5,4 @@ djangorestframework==3.3.2
 wsgiref==0.1.2
 django-toolbelt
 monkeylearn
+django-cors-headers
