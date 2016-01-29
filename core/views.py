@@ -23,9 +23,10 @@ def classify(request):
     """
     if request.method == 'POST':
         text = request.POST.get('text')
+        newtext = text.encode('ascii', 'ignore')
         data = {}
         classifier = DatumBox(settings.API_KEY)
-        data.update({"result": classifier.sentiment_analysis(text)})
+        data.update({"result": classifier.sentiment_analysis(newtext)})
         return Response(data)
 
     else:
@@ -45,10 +46,10 @@ def entities(request):
         text_list = [text]
         module_id = settings.MONKEYLEARN_MODULE_ID
         res = ml.extractors.extract(module_id, text_list)
+        print(res.result)
         for i in range(len(res.result[0])):
-            print res.result[0][i]
             data.append(res.result[0][i])
-        return Response(data)
+        return Response(res.result)
 
     else:
         data = {}
