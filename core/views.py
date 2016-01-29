@@ -51,6 +51,8 @@ def entities(request):
         # for i in range(len(res.result[0])):
         #     data.append(res.result[0][i])
         data.append({'count': 1, 'tag': 'ORGANIZATION', 'entity': 'About Data Respons Data Respons'})
+        data.append({'count': 1, 'tag': 'ORGANIZATION', 'entity': 'Oslo Stock Exchange'})
+        data.append({'count': 3, 'tag': 'PERSON', 'entity': 'Ragnvaldsen'})
         return Response(data)
 
     else:
