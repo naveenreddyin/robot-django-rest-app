@@ -55,6 +55,7 @@ def entities(request):
         # data.append({'count': 1, 'tag': 'ORGANIZATION', 'entity': 'About Data Respons Data Respons'})
         # data.append({'count': 1, 'tag': 'ORGANIZATION', 'entity': 'Oslo Stock Exchange'})
         # data.append({'count': 3, 'tag': 'PERSON', 'entity': 'Ragnvaldsen'})
+        data.append({"message":"hello"})
         return Response(data)
 
     else:
